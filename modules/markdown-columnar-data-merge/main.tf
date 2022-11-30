@@ -1,11 +1,15 @@
-module "table_data" {
-  source = "../../utils/deepmerge"
+data "utils_deep_merge_json" "table_data" {
+  input = [
+    for table_data in var.tables : jsonencode(table_data)
+  ]
 
-  source_maps = var.tables
+  append_list = true
+
+  deep_copy_list = true
 }
 
 locals {
-  raw_table_data = module.table_data.merged_maps
+  raw_table_data = jsondecode(data.utils_deep_merge_json.table_data.output)
 
   table_data = {
     for table_name, table_data in local.raw_table_data : table_name => {
@@ -18,3 +22,4 @@ locals {
     }
   }
 }
+
