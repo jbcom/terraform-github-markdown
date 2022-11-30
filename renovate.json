@@ -4,6 +4,7 @@
     "config:base",
     ":semanticCommits"
   ],
+  "commitMessageAction": "Update",
   "labels": ["auto-update"],
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": true,
